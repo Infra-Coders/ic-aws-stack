@@ -1,2 +1,2 @@
-# ic-networking-stack
-InfraCoders Kube Networking Stack
+# ic-aws-stack
+InfraCoders Kube AWS Stack

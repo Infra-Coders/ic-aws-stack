@@ -1,0 +1,36 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: aws-cloud-controller-manager
+  namespace: kube-system
+spec:
+  interval: 10m
+
+  chart:
+    spec:
+      chart: aws-cloud-controller-manager
+      sourceRef:
+        kind: HelmRepository
+        name: aws-cloud-controller-manager
+        namespace: kube-system
+      # version: 0.0.x
+
+  values:
+    clusterName: ic-k8slab
+
+    nodeSelector:
+      node-role.kubernetes.io/control-plane: ""
+
+    tolerations:
+      - key: node-role.kubernetes.io/control-plane
+        operator: Exists
+        effect: NoSchedule
+      - key: node.cloudprovider.kubernetes.io/uninitialized
+        operator: Exists
+        effect: NoSchedule
+
+    args:
+      - --v=2
+      - --cloud-provider=aws
+      - --cluster-name=ic-k8slab
+      - --configure-cloud-routes=false

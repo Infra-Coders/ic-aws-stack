@@ -1,0 +1,10 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: external-dns
+  namespace: kube-system
+spec:
+  values:
+    domainFilters:
+      - luke.infra-coders.com
+    txtOwnerId: Z02251092DC8UV3YZXE7B

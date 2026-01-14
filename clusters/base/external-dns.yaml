@@ -1,0 +1,56 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: external-dns
+  namespace: kube-system
+spec:
+  interval: 10m
+
+  chart:
+    spec:
+      chart: external-dns
+      version: 1.14.4
+      sourceRef:
+        kind: HelmRepository
+        name: external-dns
+        namespace: kube-system
+
+  values:
+    # === provider / registry ===
+    provider: aws
+    policy: sync
+    registry: txt
+    txtOwnerId: HOSTED_ZONE_ID
+
+    sources:
+      - service
+      - ingress
+
+    # === AWS specifics ===
+    aws:
+      zoneType: public
+      preferCNAME: false
+
+    # === logging / behaviour ===
+    logLevel: info
+    interval: 1m
+
+    # === security / pod config ===
+    podSecurityContext:
+      fsGroup: 65534
+
+    securityContext:
+      runAsNonRoot: true
+      runAsUser: 65534
+
+    # === resource sanity (bezpieczne defaulty) ===
+    resources:
+      requests:
+        cpu: 50m
+        memory: 64Mi
+      limits:
+        cpu: 200m
+        memory: 256Mi
+
+    # === PLACEHOLDERS – PATCHOWANE PER USER ===
+    domainFilters: []
