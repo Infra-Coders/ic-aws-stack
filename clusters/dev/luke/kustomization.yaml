@@ -3,5 +3,7 @@ kind: Kustomization
 
 resources:
   - ../../base
+  - ../../base/clusterissuer-letsencrypt.yaml
 patches:
   - path: external-dns-patch.yaml
+  - path: clusterissuer-patch.yaml
