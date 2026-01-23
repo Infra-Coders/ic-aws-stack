@@ -11,6 +11,14 @@ metadata:
 spec:
   interval: 10m
 
+  install:
+    crds: Create
+    remediation:
+      retries: 3
+
+  upgrade:
+    crds: CreateReplace
+
   chart:
     spec:
       chart: cert-manager

@@ -6,4 +6,3 @@ resources:
   - aws-cloud-controller-manager.yaml
   - external-dns.yaml
   - cert-manager.yaml
-  - clusterissuer-letsencrypt.yaml
