@@ -5,3 +5,4 @@ resources:
   - ../../base
 patches:
   - path: external-dns-patch.yaml
+  - path: clusterissuer-patch.yaml
