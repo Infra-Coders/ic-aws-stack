@@ -15,12 +15,15 @@ spec:
         name: external-dns
         namespace: kube-system
 
+  valuesFrom:
+    - kind: ConfigMap
+      name: external-dns-config
+      valuesKey: values.yaml
   values:
     # === provider / registry ===
     provider: aws
     policy: sync
     registry: txt
-    txtOwnerId: HOSTED_ZONE_ID
 
     sources:
       - service
@@ -52,5 +55,3 @@ spec:
         cpu: 200m
         memory: 256Mi
 
-    # === PLACEHOLDERS – PATCHOWANE PER USER ===
-    domainFilters: []
